@@ -29,36 +29,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Notification'),
+      home: HomePage(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class HomePage extends StatelessWidget {
   final storage = LocalStorage();
   final notification = NotificationService();
   final controller = Get.put(CounterController());
 
-  @override
-  void initState() {
-    super.initState();
-    notification.notifyListener();
-    readCounter();
-  }
-
   readCounter() async {
     String data = await storage.readData();
-    controller.counter = int.parse(data);
-    setState(() {});
+    controller.initilaizeCounter(int.parse(data));
   }
 
   @override
@@ -66,9 +49,11 @@ class _MyHomePageState extends State<MyHomePage> {
     var scrHeight = MediaQuery.of(context).size.height / 100;
     var scrWidth = MediaQuery.of(context).size.width / 100;
     var fontHeight = MediaQuery.of(context).size.height * 0.01;
+    notification.notifyListener();
+    readCounter();
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.title),
+        title: Text("Counter Notifiaction"),
       ),
       body: Container(
         width: double.infinity,
