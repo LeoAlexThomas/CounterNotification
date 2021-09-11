@@ -20,6 +20,8 @@ void main() {
   ]);
   // Register the Get controller to app
   Get.put(CounterController());
+  // initialize notification listener for action button in notification
+  NotificationService().notifyListener();
   runApp(MaterialApp(
     home: HomePage(),
   ));
@@ -49,8 +51,6 @@ class HomePage extends StatelessWidget {
     var scrHeight = MediaQuery.of(context).size.height / 100;
     var scrWidth = MediaQuery.of(context).size.width / 100;
     var fontHeight = MediaQuery.of(context).size.height * 0.01;
-    // initialize notification listener for action button in notification
-    notification.notifyListener();
 
     readCounter();
     return Scaffold(
