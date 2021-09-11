@@ -4,10 +4,14 @@ import 'package:counter_notification/storage/storage.dart';
 import 'package:get/get.dart';
 
 class NotificationService {
+  // instance of AwesomeNotifications class
   final _notification = AwesomeNotifications();
+  // controller for update counter in notification button
   final controller = Get.put(CounterController());
+  // instance for localstorage to write data
   final storage = LocalStorage();
 
+  // creating the notification from given data with increament button
   createNotification(String title, String content) async {
     _notification.createNotification(
       content: NotificationContent(
@@ -31,8 +35,8 @@ class NotificationService {
     );
   }
 
+// start the listener for action button in notification
   notifyListener() {
-    print('object');
     _notification.actionStream.listen((event) {
       int count = controller.inc();
       storage.writeData(count.toString());
